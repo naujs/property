@@ -1,0 +1,15 @@
+'use strict';
+
+var validator = require('validator');
+
+module.exports = function (value) {
+  var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+  var message = options.message || '%(value)s is not a valid url';
+
+  if (!validator.isURL(value)) {
+    throw message;
+  }
+
+  return value;
+};

@@ -1,0 +1,25 @@
+{
+  "name": "@naujs/property",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naujs/property.git"
+  },
+  "author": "Tan Nguyen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/naujs/property/issues"
+  },
+  "homepage": "https://github.com/naujs/property#readme",
+  "dependencies": {
+    "bluebird": "^3.3.5",
+    "lodash": "^4.11.0",
+    "moment": "^2.12.0",
+    "validator": "^5.2.0"
+  }
+}
