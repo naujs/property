@@ -130,7 +130,7 @@ describe('StringType', () => {
         {
           input: '123',
           output: [
-            '%(value)s is not valid'
+            '%(value)s does not match /abc/'
           ]
         }
       ]
@@ -282,7 +282,7 @@ describe('StringType', () => {
           input: '123a',
           output: [
             '%(property)s must be less than %(max)d and greater than %(min)d characters',
-            '%(value)s is not valid'
+            '%(value)s does not match /^\\d+$/'
           ]
         }
       ]

@@ -5,6 +5,14 @@ var Component = require('@naujs/component')
   , Registry = require('@naujs/registry');
 
 class Type extends Component {
+  static define(name, NewType) {
+    if (NewType.prototype instanceof Type) {
+      Registry.setType(name, NewType);
+    } else {
+      throw 'Must be a subclass of Type';
+    }
+  }
+
   constructor(options = {}) {
     super();
     this._options = options;

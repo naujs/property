@@ -11,7 +11,7 @@ class Property {
       };
     }
 
-    if (!options.type) {
+    if (!options || !options.type) {
       throw `Missing type for ${name}`;
     }
 
@@ -30,6 +30,14 @@ class Property {
     };
 
     this._value = options.default;
+  }
+
+  setter(fn) {
+    this._set = fn;
+  }
+
+  getter(fn) {
+    this._get = fn;
   }
 
   getOption(key) {
@@ -52,11 +60,12 @@ class Property {
 
     return this._type.validateValue(value, context).then((errors) => {
       if (errors && errors.length) return _.map(errors, (err) => {
-        return util.sprintf(err, _.extend({property: name}, this._options));
+        return util.sprintf(err, _.extend({property: name, value: value}, this._options));
       });
       return errors;
     });
   }
 }
+Property.Type = Type;
 
 module.exports = Property;

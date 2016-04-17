@@ -19,7 +19,7 @@ var Property = (function () {
       };
     }
 
-    if (!options.type) {
+    if (!options || !options.type) {
       throw 'Missing type for ' + name;
     }
 
@@ -41,6 +41,16 @@ var Property = (function () {
   }
 
   _createClass(Property, [{
+    key: 'setter',
+    value: function setter(fn) {
+      this._set = fn;
+    }
+  }, {
+    key: 'getter',
+    value: function getter(fn) {
+      this._get = fn;
+    }
+  }, {
     key: 'getOption',
     value: function getOption(key) {
       return this._options[key];
@@ -67,7 +77,7 @@ var Property = (function () {
 
       return this._type.validateValue(value, context).then(function (errors) {
         if (errors && errors.length) return _.map(errors, function (err) {
-          return util.sprintf(err, _.extend({ property: name }, _this._options));
+          return util.sprintf(err, _.extend({ property: name, value: value }, _this._options));
         });
         return errors;
       });
@@ -76,5 +86,7 @@ var Property = (function () {
 
   return Property;
 })();
+
+Property.Type = Type;
 
 module.exports = Property;

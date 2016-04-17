@@ -32,7 +32,7 @@ class StringType extends Type {
     }
 
     if (regex && !validator.matches(value, regex.pattern || regex)) {
-      this.addError(regex.message || '%(value)s is not valid');
+      this.addError(regex.message || `%(value)s does not match ${regex.pattern || regex}`);
     }
 
     if (email && !validator.isEmail(value)) {

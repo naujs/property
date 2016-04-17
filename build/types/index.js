@@ -6,5 +6,6 @@ module.exports = {
   number: require('./NumberType'),
   boolean: require('./BooleanType'),
   date: require('./DateType'),
-  object: require('./ObjectType')
+  object: require('./ObjectType'),
+  any: require('./AnyType')
 };
