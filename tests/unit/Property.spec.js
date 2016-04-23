@@ -46,8 +46,9 @@ describe('Property', () => {
     it('should validate the value using the associated type validate method', () => {
       property.setValue('test');
 
-      return property.validate().then((errors) => {
-        expect(errors).toEqual([
+      return property.validate().then((result) => {
+        expect(result).toEqual(false);
+        expect(property.getErrors()).toEqual([
           'name must be less than 10 and greater than 5 characters'
         ]);
       });
@@ -56,8 +57,8 @@ describe('Property', () => {
     it('should return null if there are no errors', () => {
       property.setValue('testttt');
 
-      return property.validate().then((errors) => {
-        expect(errors).toEqual(null);
+      return property.validate().then((result) => {
+        expect(result).toEqual(true);
       });
     });
   });

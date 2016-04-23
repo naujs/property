@@ -4,6 +4,12 @@ var util = require('@naujs/util')
   , Type = require('./types/Type');
 
 class Property {
+  static parse(properties) {
+    return _.chain(properties).map((opts, name) => {
+      return [name, new this(name, opts)];
+    }).fromPairs().value();
+  }
+
   constructor(name, options) {
     if (_.isString(options)) {
       options = {
@@ -53,16 +59,24 @@ class Property {
     return this._get(this._value);
   }
 
+  getErrors() {
+    return this._errors || null;
+  }
+
   validate(context) {
     var errors = [];
     var name = this._name;
     var value = this.getValue();
+    this._errors = null;
 
     return this._type.validateValue(value, context).then((errors) => {
       if (errors && errors.length) return _.map(errors, (err) => {
         return util.sprintf(err, _.extend({property: name, value: value}, this._options));
       });
       return errors;
+    }).then((errors) => {
+      if (errors) this._errors = errors;
+      return !errors;
     });
   }
 }

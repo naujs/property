@@ -17,6 +17,18 @@ var Component = require('@naujs/component'),
 var Type = (function (_Component) {
   _inherits(Type, _Component);
 
+  _createClass(Type, null, [{
+    key: 'define',
+    value: function define(name, NewType) {
+      if (NewType.prototype instanceof Type) {
+        Registry.setType(name, NewType);
+      } else {
+        // TODO: support object declaration
+        throw 'Must be a subclass of Type';
+      }
+    }
+  }]);
+
   function Type() {
     var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 

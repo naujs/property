@@ -10,6 +10,17 @@ var util = require('@naujs/util'),
     Type = require('./types/Type');
 
 var Property = (function () {
+  _createClass(Property, null, [{
+    key: 'parse',
+    value: function parse(properties) {
+      var _this = this;
+
+      return _.chain(properties).map(function (opts, name) {
+        return [name, new _this(name, opts)];
+      }).fromPairs().value();
+    }
+  }]);
+
   function Property(name, options) {
     _classCallCheck(this, Property);
 
@@ -67,19 +78,28 @@ var Property = (function () {
       return this._get(this._value);
     }
   }, {
+    key: 'getErrors',
+    value: function getErrors() {
+      return this._errors || null;
+    }
+  }, {
     key: 'validate',
     value: function validate(context) {
-      var _this = this;
+      var _this2 = this;
 
       var errors = [];
       var name = this._name;
       var value = this.getValue();
+      this._errors = null;
 
       return this._type.validateValue(value, context).then(function (errors) {
         if (errors && errors.length) return _.map(errors, function (err) {
-          return util.sprintf(err, _.extend({ property: name, value: value }, _this._options));
+          return util.sprintf(err, _.extend({ property: name, value: value }, _this2._options));
         });
         return errors;
+      }).then(function (errors) {
+        if (errors) _this2._errors = errors;
+        return !errors;
       });
     }
   }]);

@@ -9,6 +9,7 @@ class Type extends Component {
     if (NewType.prototype instanceof Type) {
       Registry.setType(name, NewType);
     } else {
+      // TODO: support object declaration
       throw 'Must be a subclass of Type';
     }
   }
